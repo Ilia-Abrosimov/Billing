@@ -1,0 +1,46 @@
+
+# API Settings
+SECRET_KEY=8b82efa703035a2bccaaeeb6d136ee8e59f1ef2c19fff57adaac7d20f7777473
+SALT=somerandomsalt
+FLASK_DEBUG=False
+FLASK_APP=app.py
+
+REFRESH_JWT_TOKEN_DURATION=1200
+ACCESS_JWT_TOKEN_DURATION=100
+
+SUPERUSER_ROLE_NAME=superuser
+GUEST_ROLE_NAME=guest
+
+LIMITER_CONFIG=5 per 1 minute
+
+# Redis Settings
+REDIS_HOST=redis
+REDIS_PORT=6379
+
+# Postgres Settings
+POSTGRES_USER=auth
+POSTGRES_PASSWORD=123qwe
+POSTGRES_DB=users_database
+POSTGRES_HOST=auth_db
+POSTGRES_PORT=5432
+
+# Postgres Settings for tests
+TEST_POSTGRES_USER=test_auth
+TEST_POSTGRES_PASSWORD=test_123qwe
+TEST_POSTGRES_DB=test_users_database
+TEST_POSTGRES_HOST=test_db
+TEST_POSTGRES_PORT=5432
+
+# Jaeger Settings
+AUTH_PROJECT_NAME=AuthorizationService
+JAEGER_HOST=jaeger
+JAEGER_AGENT_PORT=6831
+JAEGER_SAMPLING_RATIO=0.8
+
+GOOGLE_CLIENT_ID = 71795016849-a2pthr10bjbbbcp610llfolqp1j2vqfi.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET = 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
+
+YANDEX_CLIENT_ID = fe46fbbfef3744ae9b23c673b57d2042
+YANDEX_CLIENT_SECRET = f963a6d846d9461eb6cf030d075c1073
+
+SENTRY_DSN=https://xxxx.ingest.sentry.io/example

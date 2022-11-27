@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:15.0-alpine
+    env_file:
+      - .env
+
+  fastapi:
+    build:
+      context: ../../payment_api
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  tests:
+    container_name: tests-container
+    build:
+      context: .
+    entrypoint: >
+      sh -c "pytest ./src"
+    depends_on:
+      - fastapi
+    env_file:
+      - .env

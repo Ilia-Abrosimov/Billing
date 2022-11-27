@@ -1,0 +1,70 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres:15.0-alpine
+    container_name: postgres
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data/
+    env_file:
+      - .env
+
+  payment_api:
+    build:
+      context: ./payment_api
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - 8090:8000
+
+  auth_db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .auth_env
+
+  redis:
+    image: redis:6.0.9
+    restart: on-failure
+
+  auth_api:
+    container_name: auth_api
+    build: ./auth/auth_api
+    env_file:
+      - .auth_env
+    volumes:
+      - /tmp/logs/app/json:/var/log/app
+    depends_on:
+      - redis
+      - auth_db
+    ports:
+      - 8999:8000
+
+  payment-manager:
+    container_name: payment-manager
+    build: payment_manager/
+    env_file:
+      - ./.env
+    depends_on:
+      - payment_api
+      - auth_api
+
+  scheduler:
+    container_name: scheduler
+    build: ./scheduler/
+    depends_on:
+      - redis
+    env_file:
+      - ./scheduler/.env
+
+volumes:
+  postgres_volume:
+  postgres_data:
+
+networks:
+  default:
+    name: graduate_network
+    external: true
