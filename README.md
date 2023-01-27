@@ -1,4 +1,4 @@
-# Notifications
+# Billing
 
 
 ### Схема сервиса
